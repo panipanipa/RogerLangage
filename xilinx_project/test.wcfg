@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/jehannin/PSI/xilinx_project/testbench_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_unsigned" />
+            <top_module name="testbench" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="11" />
+   <wvobject fp_name="/testbench/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/test/ip" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ip[8:0]</obj_property>
+      <obj_property name="ObjectShortName">ip[8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/test/mem_instr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_instr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_instr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/test/li_di_op" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">li_di_op[7:0]</obj_property>
+      <obj_property name="ObjectShortName">li_di_op[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/test/di_ex_op" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">di_ex_op[7:0]</obj_property>
+      <obj_property name="ObjectShortName">di_ex_op[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/test/ex_mem_op" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_mem_op[7:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_mem_op[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/test/mem_re_op" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_re_op[7:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_re_op[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/test/reg/ram_s[4]" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">[4]</obj_property>
+      <obj_property name="ObjectShortName">ram_s[4]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/test/reg/ram_s[5]" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">[5]</obj_property>
+      <obj_property name="ObjectShortName">ram_s[5]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/test/mem/mem_s[0]" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">[0]</obj_property>
+      <obj_property name="ObjectShortName">mem_s[0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/test/reg/ram_s[6]" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">[6]</obj_property>
+      <obj_property name="ObjectShortName">ram_s[6]</obj_property>
+   </wvobject>
+</wave_config>

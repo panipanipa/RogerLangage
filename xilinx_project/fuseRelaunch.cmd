@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "secureip" -o "/home/jehannin/PSI/xilinx_project/testbench_isim_beh.exe" -prj "/home/jehannin/PSI/xilinx_project/testbench_beh.prj" "work.testbench" 
