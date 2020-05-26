@@ -24,7 +24,7 @@ void ToemptyA() {
     for(i=0 ; i<nextA ; i++) {
         struct asmLine myasm =  tableA[i] ;
          if(myasm.adC==-1)
-            if(strcmp(myasm.asmIns, "JMPF")==0)
+            if(strcmp(myasm.asmIns, "JMPF")==0 || strcmp(myasm.asmIns, "JMP")==0 )
                 fprintf(myfile, "%s %d \n", myasm.asmIns,myasm.adA) ;
             else
             fprintf(myfile, "%s %x %x \n", myasm.asmIns,myasm.adA, myasm.adB) ;

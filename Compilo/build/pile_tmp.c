@@ -9,17 +9,17 @@ int sommet = 0x3000 ;
 
 void P_tmp_add(int id) {
     //printf("add pile\n") ;
-    sommet+=sizeof(int) ;
     //printf("AFC %x %d\n", sommet, id) ;
     insertA("AFC", sommet, id, -1) ;
+    sommet+=sizeof(int) ;
 }
 
 void P_tmp_add2(int address) {
-    sommet+=sizeof(int) ;
     insertA("LOAD", 0, address, -1) ;
     insertA("AFC", sommet, 0, -1) ;
     //printf("LOAD r0 %x\n", address);
     //printf("AFC %x r0\n", sommet) ;
+    sommet+=sizeof(int) ;
 }
 
 int P_tmp_remove() {

@@ -12,7 +12,7 @@ Parsing VHDL file "/home/jehannin/PSI/xilinx_project/test_processor.vhd" into li
 Starting static elaboration
 Completed static elaboration
 Fuse Memory Usage: 98504 KB
-Fuse CPU Usage: 1250 ms
+Fuse CPU Usage: 1200 ms
 Compiling package standard
 Compiling package std_logic_1164
 Compiling package numeric_std
@@ -28,6 +28,6 @@ Time Resolution for simulation is 1ps.
 Waiting for 1 sub-compilation(s) to finish...
 Compiled 16 VHDL Units
 Built simulation executable /home/jehannin/PSI/xilinx_project/testbench_isim_beh.exe
-Fuse Memory Usage: 6441784 KB
-Fuse CPU Usage: 1440 ms
-GCC CPU Usage: 170 ms
+Fuse Memory Usage: 6441780 KB
+Fuse CPU Usage: 1450 ms
+GCC CPU Usage: 280 ms

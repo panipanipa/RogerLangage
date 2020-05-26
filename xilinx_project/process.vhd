@@ -122,41 +122,10 @@ mem : data_memory_file port map (ad, EX_MEM_B, RW, RST, CLK, OUTPUT) ;
 
   process
 	VARIABLE CONFLICT_DURATION : INTEGER := 0 ;
-	VARIABLE CONFLICT_CURRENT_PERIOD : INTEGER := 0 ;
 	begin
 	wait until CLK'event and CLK='1';
-		
+	
 		if CONFLICT_DURATION = 0 then
-			if (MEM_INSTR(31 downto 24) = "00000001" or MEM_INSTR(31 downto 24) = "00000010" or MEM_INSTR(31 downto 24) = "00000011") then
-				-- BOTH LI_DI_B AND LI_DI_C ARE READ ACCESS REGISTERS 
-				if LI_DI_OP > "00000000" and LI_DI_OP < "00001000" and (LI_DI_A = MEM_INSTR(15 downto 8) or LI_DI_A = MEM_INSTR(7 downto 0)) then
-					CONFLICT_DURATION := 3 ;
-					CONFLICT_CURRENT_PERIOD := 1 ;
-				elsif DI_EX_OP > "00000000" and DI_EX_OP < "00001000" and (DI_EX_A = MEM_INSTR(15 downto 8) or DI_EX_A = MEM_INSTR(7 downto 0)) then
-					CONFLICT_DURATION := 2 ;
-					CONFLICT_CURRENT_PERIOD := 1 ;
-				else
-					CONFLICT_CURRENT_PERIOD := 0 ;
-				end if ;
-			elsif MEM_INSTR(31 downto 24) = "00000101" or MEM_INSTR(31 downto 24) = "00001000" then
-				-- ONLY LI_DI_B IS A READ ACCESS REGISTER
-				if LI_DI_OP > "00000000" and LI_DI_OP < "00001000" and LI_DI_A = MEM_INSTR(15 downto 8) then
-					CONFLICT_DURATION := 3 ;
-					CONFLICT_CURRENT_PERIOD := 1 ;
-				elsif DI_EX_OP > "00000000" and DI_EX_OP < "00001000" and DI_EX_A = MEM_INSTR(15 downto 8) then
-					CONFLICT_DURATION := 2 ;
-					CONFLICT_CURRENT_PERIOD := 1 ;
-				else
-					CONFLICT_CURRENT_PERIOD := 0 ;
-				end if ;
-			else
-				CONFLICT_CURRENT_PERIOD := 0 ;
-			end if ;
-		else
-			CONFLICT_CURRENT_PERIOD := 0 ;
-		end if ;
-		
-		if CONFLICT_CURRENT_PERIOD = 1 or CONFLICT_DURATION = 0 then
 			LI_DI_OP <= MEM_INSTR(31 downto 24) ;
 			LI_DI_A <= MEM_INSTR(23 downto 16) ;
 			LI_DI_B <= MEM_INSTR(15 downto 8) ;
@@ -164,7 +133,7 @@ mem : data_memory_file port map (ad, EX_MEM_B, RW, RST, CLK, OUTPUT) ;
 		end if ;
 			
 
-		if CONFLICT_DURATION > 0 and CONFLICT_CURRENT_PERIOD = 0 then
+		if CONFLICT_DURATION > 0 then
 			DI_EX_OP <= "00000000" ;
 			DI_EX_A <= "00000000" ;
 			DI_EX_B <= "00000000" ;
@@ -179,6 +148,24 @@ mem : data_memory_file port map (ad, EX_MEM_B, RW, RST, CLK, OUTPUT) ;
 			end if ;
 			DI_EX_C <= QB ;
 		end if ;	
+		
+		if CONFLICT_DURATION = 0 then
+			if (MEM_INSTR(31 downto 24) = "00000001" or MEM_INSTR(31 downto 24) = "00000010" or MEM_INSTR(31 downto 24) = "00000011") then
+				-- BOTH LI_DI_B AND LI_DI_C ARE READ ACCESS REGISTERS 
+				if LI_DI_OP > "00000000" and LI_DI_OP < "00001000" and (LI_DI_A = MEM_INSTR(15 downto 8) or LI_DI_A = MEM_INSTR(7 downto 0)) then
+					CONFLICT_DURATION := 3 ;
+				elsif DI_EX_OP > "00000000" and DI_EX_OP < "00001000" and (DI_EX_A = MEM_INSTR(15 downto 8) or DI_EX_A = MEM_INSTR(7 downto 0)) then
+					CONFLICT_DURATION := 2 ;
+				end if ;
+			elsif MEM_INSTR(31 downto 24) = "00000101" or MEM_INSTR(31 downto 24) = "00001000" then
+				-- ONLY LI_DI_B IS A READ ACCESS REGISTER
+				if LI_DI_OP > "00000000" and LI_DI_OP < "00001000" and LI_DI_A = MEM_INSTR(15 downto 8) then
+					CONFLICT_DURATION := 3 ;
+				elsif DI_EX_OP > "00000000" and DI_EX_OP < "00001000" and DI_EX_A = MEM_INSTR(15 downto 8) then
+					CONFLICT_DURATION := 2 ;
+				end if ;
+			end if ;
+		end if ;
 		
 		if CONFLICT_DURATION > 0 then
 			CONFLICT_DURATION := CONFLICT_DURATION-1 ;
