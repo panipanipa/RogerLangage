@@ -16,6 +16,7 @@ tDiv tEq tSemiColon tTypeInt tPrintf tMain tTypeVoid tConst
 %token<i> tInteger
 %token<str> tVariable
 %token<i> tIf
+%token<i> tElse
 %token<i> tWhile
 
 
@@ -24,6 +25,7 @@ tDiv tEq tSemiColon tTypeInt tPrintf tMain tTypeVoid tConst
 %left tOpenParens tCloseParens
 
 %type<i> MATH
+%type<i> IF
 %type<str> VARIABLE_SET
 %start MAIN 
 
@@ -49,19 +51,28 @@ BODY : |
         INSTRUCTION {}  ;
 
 IF : tIf tOpenParens 
-    MATH {insertA("CMP", $3, 1, -1); insertA("JMPF", -2, -1, -1); $1 = nextA-1 ;}
+    MATH {insertA("CMP", $3, 0, -1); insertA("JMPF", -2, -1, -1); $1 = nextA-1 ;}
     tCloseParens tOpenBracket {current_depth++;} 
     BODY 
     tCloseBracket {
                     current_depth--;
-                    tableA[$1].adA = nextA ;
+                    tableA[$1].adA = nextA+2 ;
+                    insertA("NOP", -1, -1, -1) ;
                     printf("IF\n");
                 };
 
-WHILE : tWhile tOpenParens MATH {insertA("CMP", $3, 1, -1); insertA("JMPF", -2, -1, -1);  $1 = nextA-1 ;}
+ELSE : IF tElse  tOpenBracket {nextA = nextA-1 ; insertA("JMP", -2, -1, -1); $1 = nextA-1 ; current_depth++;} 
+        BODY 
+        tCloseBracket {
+                        current_depth--;
+                        tableA[$1].adA = nextA + 1;
+                        printf("ELSE\n");
+                    } ;
+
+WHILE : tWhile tOpenParens MATH {insertA("CMP", $3, 0, -1); insertA("JMPF", -2, -1, -1);  $1 = nextA-1 ;}
         tCloseParens tOpenBracket {current_depth++;} 
         BODY {insertA("JMP", $1, -1, -1);}
-        tCloseBracket {current_depth--; tableA[$1].adA = nextA ;} ;
+        tCloseBracket {current_depth--; tableA[$1].adA = nextA+1 ;} ;
 
 
 INSTRUCTION : INSTRUCTION DECLARATIONS {} 
@@ -69,8 +80,10 @@ INSTRUCTION : INSTRUCTION DECLARATIONS {}
     | INSTRUCTION IMPRIM
     | INSTRUCTION IF
     | INSTRUCTION WHILE
+    | INSTRUCTION ELSE
     | WHILE
     | IF
+    | ELSE
     | IMPRIM 
     | DECLARATIONS
     | AFFECTATION
